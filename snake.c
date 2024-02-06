@@ -1,5 +1,28 @@
 #include "includes/common.h"
 
+void free_snake(state_t *state) {
+	snake_t *current = state->snake;
+	snake_t *next = current->next;
+
+	while (current) {
+		next = current->next;
+		free(current);
+		current = next;
+	}
+
+	state->snake = (snake_t *)malloc(sizeof(snake_t));
+	state->snake->x = GRID_W / 2;
+  state->snake->y = GRID_H / 2;
+  state->snake->next = NULL;
+  state->apple.x = GRID_W / 2 + GRID_W / 4;
+  state->apple.y = GRID_H / 2 + GRID_H / 4;
+  state->direction = RIGHT;
+  state->grid[state->snake->x][state->snake->y] = 1;
+  state->grid[state->apple.x][state->apple.y] = 2;
+  state->lost = FALSE;
+  // state->running = TRUE;
+}
+
 void grow(state_t *state, coord_t coord) {
 	snake_t *old_head = state->snake;
 

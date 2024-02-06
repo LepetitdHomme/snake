@@ -20,41 +20,43 @@
 #define FALSE 0
 
 enum Direction {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT
 };
 
 typedef struct {
-	int 		x;
-	int 		y;
+	int                  x;
+	int                  y;
 } coord_t;
 
 typedef struct snake_node {
-	int 								x;
-	int 								y;
-	struct snake_node 	*next;
+	int                  x;
+	int                  y;
+	struct snake_node    *next;
 } snake_t;
 
 typedef struct {
-	int 								quit;
-	int 								running;
-	int 								score;
-	int 								lost;
-	int 								cycle_count;
-	snake_t 						*snake;
-	coord_t 						apple;
-	enum Direction 			direction;
-	int 								(*grid)[GRID_H];
-	Uint32 							current_time;
-	SDL_Renderer 				*renderer;
-	SDL_Event 					event;
+	int                  quit;
+	int                  running;
+	int                  score;
+	int                  lost;
+	int                  cycle_count;
+	snake_t              *snake;
+	coord_t              apple;
+	enum Direction       direction;
+	int                  (*grid)[GRID_H];
+	Uint32               current_time;
+	SDL_Renderer         *renderer;
+	SDL_Event            event;
 } state_t;
 
 
-void 			move_snake(state_t *state);
-void 			display_grid(state_t *state);
-int 			get_random_int(int upper_bound);
+void                  move_snake(state_t *state);
+void                  display_grid(state_t *state);
+int                   get_random_int(int upper_bound);
+void                  update_apple(state_t *state);
+void                  free_snake(state_t *state);
 
 #endif

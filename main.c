@@ -43,6 +43,15 @@ int next_cycle_ready(state_t *state, uint32_t last_cycle) {
   return FALSE;
 }
 
+void reinitialize_game(state_t *state) {
+  for (int x = 0; x < GRID_W ; x++) {
+    for ( int y = 0 ; y < GRID_H ; y++) {
+      state->grid[x][y] = 0;
+    }
+  }
+  free_snake(state);
+}
+
 int main(int argc, char *argv[]) {
   srand(time(NULL));
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -96,6 +105,10 @@ int main(int argc, char *argv[]) {
       move_snake(&state);
       last_cycle = state.current_time;
       state.cycle_count++;
+    }
+
+    if (state.lost == TRUE) {
+      reinitialize_game(&state);
     }
 
     /* Draw your graphics here (currently an empty black window) */
